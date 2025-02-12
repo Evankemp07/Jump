@@ -1,5 +1,6 @@
 import pygame
 import random
+import asyncio
 from settings import WIDTH, HEIGHT, WHITE, FPS, JUMP_STRENGTH, MAX_HORIZONTAL_GAP, MAX_VERTICAL_GAP, PLATFORM_WIDTH
 from player import Player
 from platforms import Platform
@@ -20,14 +21,14 @@ def restart_game():
     player = Player(platforms[0])
     powerups.clear()
 
-def game_loop():
+async def game_loop():
     global running
-    clock = pygame.time.Clock()
     restart_game()
     running = True
 
     while running:
-        clock.tick(FPS)
+        start_time = pygame.time.get_ticks()
+
         screen.fill(WHITE)
         
         for event in pygame.event.get():
@@ -56,8 +57,7 @@ def game_loop():
             for powerup in powerups:
                 powerup.y -= shift
 
-
-        if all(platform.y < -HEIGHT -200 for platform in platforms):
+        if all(platform.y < -HEIGHT - 200 for platform in platforms):
             for alpha in range(0, 255, 10):
                 fade_surface = pygame.Surface((WIDTH, HEIGHT))
                 fade_surface.fill((0, 0, 0))
@@ -66,9 +66,10 @@ def game_loop():
                 font = pygame.font.Font(None, 50)
                 text = font.render("Game Over!", True, (255, 0, 0))
                 screen.blit(text, (WIDTH // 2 - 100, HEIGHT // 2 - 20))
+                screen.blit(text, (WIDTH // 2 - 100, HEIGHT // 2 - 20))
                 pygame.display.update()
-                pygame.time.delay(50)
-            pygame.time.delay(2000)
+                await asyncio.sleep(0.05)
+            await asyncio.sleep(2)
             restart_game()
 
         for platform in platforms:
@@ -114,6 +115,10 @@ def game_loop():
 
         pygame.display.update()
 
+        elapsed_time = pygame.time.get_ticks() - start_time
+        frame_time = max(1 / FPS - (elapsed_time / 1000), 0)
+        await asyncio.sleep(frame_time)
+
     pygame.quit()
 
-game_loop()
+asyncio.run(game_loop())
