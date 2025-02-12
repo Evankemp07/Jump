@@ -8,6 +8,8 @@ The purpose of writing this software was to strengthen my understanding of **gam
 
 **[Software Demo Video](https://vimeo.com/1055368740/0f6f229e86?share=copy)**
 
+**[Click Here To Open Interative Game](https://evankemp07.github.io/Jump/src/build/web/)**
+
 ---
 
 # **Development Environment**
