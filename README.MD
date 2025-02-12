@@ -7,6 +7,7 @@ The game I developed is a **2D jumping game** where the player **jumps from plat
 The purpose of writing this software was to strengthen my understanding of **game physics, object-oriented programming (OOP), and collision handling**. It also helped me refine my **debugging skills** by addressing issues such as power-up movement, disappearing platforms, and game-over conditions.
 
 **[Software Demo Video](https://vimeo.com/1055368740/0f6f229e86?share=copy)**
+
 **[Click Here To Open Interative Game](https://evankemp07.github.io/Jump/src/build/web/)**
 
 ---
